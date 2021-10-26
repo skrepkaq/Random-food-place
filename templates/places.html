@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Document</title>
+</head>
+<body>
+    <h3>{{ config.PLACES_COUNT }} случайных мест в городе</h3>
+    <h2>{{ city }}</h2>
+    <table class="places">
+        <tr class="table-header">
+            <td>Название</td>
+            <td>Категория</td>
+            <td>Адресс</td>
+        </tr>
+        {% for place in places %}
+            <tr>
+                <td>{{ place[0] }}</td>
+                <td>{{ place[1] }}</td>
+                <td>{{ place[2] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td>
+                <button onClick="window.location.reload();">Обновить</button>
+            </td>
+            <td>
+                <form action="../">
+                    <input type="submit" value="Другой город">
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

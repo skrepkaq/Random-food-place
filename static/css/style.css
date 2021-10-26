@@ -1,0 +1,18 @@
+table {
+    border-collapse: collapse;
+}
+
+table.places, table.places td, table.places tr {
+    border: 1px solid black;
+}
+
+.table-header {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.alert {
+    color: red;
+    font-weight: bold;
+}
