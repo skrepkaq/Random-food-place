@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block body %}
     <h3>Не можешь выбрать где поесть?<br>Введи свой город, найди {{ config.PLACES_COUNT }} абослютно случайных кафе/ресторанов и выбирай уже из них!</h3>
     <form action="/" method="POST">
         <input type="text" name="city" id="city", placeholder="Город">
@@ -18,5 +11,4 @@
             {{ alert_text }}
         </p>
     {% endif %}
-</body>
-</html>
+{% endblock %}
