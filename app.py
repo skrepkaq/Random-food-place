@@ -12,16 +12,15 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-        city = request.form["city"]
-        if not re.match("^[A-Za-zА-Яа-я- ]*$", city):  # check if city name is valid
-            return render_template('index.html', alert_text="Wrong city name", config=config)  # if not - display error
-        return redirect(url_for('city', city=city))
+        return redirect(url_for('city', city=request.form["city"]))
     else:
         return render_template('index.html', config=config)
 
 
 @app.route("/city/<string:city>")
 def city(city):
+    if not re.match("^[A-Za-zА-ЯёЁа-я- ]*$", city):  # check if city name is valid
+        return render_template('index.html', alert_text="Wrong city name", config=config)  # if not - display error
     places = get_places(city)
     if not places or len(places) == 1:
         return render_template('index.html', alert_text=places[0], config=config)  # if error
