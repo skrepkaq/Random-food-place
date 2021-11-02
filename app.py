@@ -1,6 +1,6 @@
 import json
 import re
-from random import choices
+from random import sample
 import requests
 from flask import Flask, render_template, redirect, url_for, request
 import config
@@ -36,7 +36,7 @@ def get_places(city):
     if r.status_code != 200: return [r.text]  # error
     data = json.loads(r.text)
     if len(data["features"]) < config.PLACES_COUNT: return ['Places not found']  # places not found
-    json_places = choices(data["features"], k=config.PLACES_COUNT)
+    json_places = sample(data["features"], k=config.PLACES_COUNT)
 
     places = []
     for place in json_places:
