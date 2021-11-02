@@ -15,11 +15,11 @@
             <td>Категория</td>
             <td>Адресс</td>
         </tr>
-        {% for i in range(0, places|length - 1) %}
+        {% for place in places %}
             <tr>
-                <td>{{ places[i][0] }}</td>
-                <td>{{ places[i][1] }}</td>
-                <td>{{ places[i][2] }}</td>
+                <td>{{ place[0] }}</td>
+                <td>{{ place[1] }}</td>
+                <td>{{ place[2] }}</td>
             </tr>
         {% endfor %}
     </table>

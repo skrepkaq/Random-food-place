@@ -39,18 +39,11 @@ def get_places(city):
     json_places = choices(data["features"], k=config.PLACES_COUNT)
 
     places = []
-    center = [0, 0]
     for place in json_places:
         categories = " ".join([category['name'] for category in place['properties']['CompanyMetaData']['Categories']])
         # create string of categories
         coordinates = place['geometry']['coordinates'][::-1]
-        center[0] += coordinates[0]
-        center[1] += coordinates[1]
-        # calculate center between points
         places.append([place['properties']['name'], categories, place['properties']['description'], coordinates])
-    center[0] /= len(json_places)
-    center[1] /= len(json_places)
-    places.append(center)
     return(places)
 
 

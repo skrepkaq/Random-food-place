@@ -3,10 +3,15 @@ var places
 ymaps.ready(map_init);
 function map_init() {
     var myMap = new ymaps.Map("map", {
-        center: places[places.length-1], //set a pre-calculated center
+        center: [0, 0],
         zoom: 12
     });
-    for (let i = 0; i < places.length-1; i++) {
+    var centerLat = 0,
+        centerLong = 0;
+    for (let i = 0; i < places.length; i++) {
+        // calculate center between points
+        centerLat += places[i][3][0];
+        centerLong += places[i][3][1];
         // add points on map
         myMap.geoObjects
         .add(new ymaps.Placemark(places[i][3], {
@@ -16,4 +21,5 @@ function map_init() {
             preset: 'islands#greenDotIconWithCaption'
         }));
     }
+    myMap.setCenter([centerLat/places.length, centerLong/places.length]);
 }
