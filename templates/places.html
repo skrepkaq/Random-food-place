@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <script src="https://api-maps.yandex.ru/2.1/?apikey={{ config.MAPS_API_KEY }}&lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script type="text/javascript">{{ 'places = ' }}{{ places|tojson }}</script>
+{% endblock %}
+
 {% block body %}
     <h3>{{ config.PLACES_COUNT }} случайных мест в городе</h3>
     <h2>{{ city }}</h2>
@@ -9,11 +15,11 @@
             <td>Категория</td>
             <td>Адресс</td>
         </tr>
-        {% for place in places %}
+        {% for i in range(0, places|length - 1) %}
             <tr>
-                <td>{{ place[0] }}</td>
-                <td>{{ place[1] }}</td>
-                <td>{{ place[2] }}</td>
+                <td>{{ places[i][0] }}</td>
+                <td>{{ places[i][1] }}</td>
+                <td>{{ places[i][2] }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -30,4 +36,6 @@
             </td>
         </tr>
     </table>
+    <br>
+    <div id="map" style="width: 600px; height: 600px"></div>
 {% endblock %}
