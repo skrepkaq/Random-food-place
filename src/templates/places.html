@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block head %}
     <script src="https://api-maps.yandex.ru/2.1/?apikey={{ config.MAPS_API_KEY }}&lang=ru_RU" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
-    <script type="text/javascript">{{ 'places = ' }}{{ places|tojson }}</script>
+    {{ places|json_script:"places" }}
+    <script type="text/javascript" src="{% static 'js/map.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -17,9 +17,9 @@
         </tr>
         {% for place in places %}
             <tr>
-                <td>{{ place[0] }}</td>
-                <td>{{ place[1] }}</td>
-                <td>{{ place[2] }}</td>
+                <td>{{ place.fields.name }}</td>
+                <td>{{ place.fields.categories }}</td>
+                <td>{{ place.fields.description }}</td>
             </tr>
         {% endfor %}
     </table>

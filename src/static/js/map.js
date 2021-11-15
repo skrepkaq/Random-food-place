@@ -1,4 +1,4 @@
-var places
+const places = JSON.parse(document.getElementById('places').textContent);
 
 ymaps.ready(map_init);
 function map_init() {
@@ -9,14 +9,16 @@ function map_init() {
     var centerLat = 0,
         centerLong = 0;
     for (let i = 0; i < places.length; i++) {
+        let place = places[i].fields;
+        let cords = place.coordinates.split(' ').map(Number);;
         // calculate center between points
-        centerLat += places[i][3][0];
-        centerLong += places[i][3][1];
+        centerLat += cords[0];
+        centerLong += cords[1];
         // add points on map
         myMap.geoObjects
-        .add(new ymaps.Placemark(places[i][3], {
-            balloonContent: places[i][1],
-            iconCaption: places[i][0]
+        .add(new ymaps.Placemark(cords, {
+            balloonContent: place.categories,
+            iconCaption: place.name
         }, {
             preset: 'islands#greenDotIconWithCaption'
         }));
