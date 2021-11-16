@@ -24,7 +24,7 @@ def cash_places(places, city):
         obj.delete()
     except City.DoesNotExist:
         pass
-    ct = City(name=city)
+    ct = City(name=city, time=time.time())
     ct.save()
     Place.objects.bulk_create([Place(city=ct, name=p[0], categories=p[1],
                                      description=p[2], coordinates=p[3]) for p in places])

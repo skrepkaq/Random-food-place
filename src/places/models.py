@@ -1,11 +1,10 @@
-import time
 from django.db import models
 
 
 class City(models.Model):
     name = models.CharField(max_length=50)
     uses = models.IntegerField(default=0)
-    time = models.IntegerField(default=time.time())
+    time = models.IntegerField()
 
 
 class Place(models.Model):
