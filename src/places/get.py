@@ -3,7 +3,6 @@ import json
 import time
 from . import config
 from .models import City, Place
-from django.core import serializers
 
 
 def get_places(city):
@@ -15,7 +14,7 @@ def get_places(city):
         places = fetch_places(city)
         cash_places(places, city)
     use_city(city)
-    return serializers.serialize("json", Place.objects.filter(city__name=city).order_by('?')[:config.PLACES_COUNT])
+    return list(Place.objects.filter(city__name=city).order_by('?').values()[:config.PLACES_COUNT])
 
 
 def cash_places(places, city):

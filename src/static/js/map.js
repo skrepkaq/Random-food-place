@@ -9,16 +9,15 @@ function map_init() {
     var centerLat = 0,
         centerLong = 0;
     for (let i = 0; i < places.length; i++) {
-        let place = places[i].fields;
-        let cords = place.coordinates.split(' ').map(Number);;
+        let cords = places[i].coordinates.split(' ').map(Number);;
         // calculate center between points
         centerLat += cords[0];
         centerLong += cords[1];
         // add points on map
         myMap.geoObjects
         .add(new ymaps.Placemark(cords, {
-            balloonContent: place.categories,
-            iconCaption: place.name
+            balloonContent: places[i].categories,
+            iconCaption: places[i].name
         }, {
             preset: 'islands#greenDotIconWithCaption'
         }));

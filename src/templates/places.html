@@ -17,9 +17,9 @@
         </tr>
         {% for place in places %}
             <tr>
-                <td>{{ place.fields.name }}</td>
-                <td>{{ place.fields.categories }}</td>
-                <td>{{ place.fields.description }}</td>
+                <td>{{ place.name }}</td>
+                <td>{{ place.categories }}</td>
+                <td>{{ place.description }}</td>
             </tr>
         {% endfor %}
     </table>
