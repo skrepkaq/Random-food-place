@@ -1,38 +1,21 @@
-import requests
 import json
-import time
+import requests
+from .models import Place
 from . import config
-from .models import City, Place
 
 
-def get_places(city):
-    try:
-        obj = City.objects.get(name=city)
-    except City.DoesNotExist:
-        obj = None
-    if not obj or obj.time < time.time()-10000 or obj.uses > 5:
-        places = fetch_places(city)
-        cash_places(places, city)
-    use_city(city)
-    return list(Place.objects.filter(city__name=city).order_by('?').values()[:config.PLACES_COUNT])
+def get(city):
+    queryset = Place.objects.filter(city=city)
+    if len(queryset) < 1:
+        create(city)
+    return Place.objects.filter(city=city)
 
 
-def cash_places(places, city):
-    try:
-        obj = City.objects.get(name=city)
-        obj.delete()
-    except City.DoesNotExist:
-        pass
-    ct = City(name=city, time=time.time())
-    ct.save()
-    Place.objects.bulk_create([Place(city=ct, name=p[0], categories=p[1],
+def create(city):
+    Place.objects.filter(city=city).delete()
+    places = fetch_places(city.name)
+    Place.objects.bulk_create([Place(city=city, name=p[0], categories=p[1],
                                      description=p[2], coordinates=p[3]) for p in places])
-
-
-def use_city(city):
-    ct = City.objects.get(name=city)
-    ct.uses += 1
-    ct.save()
 
 
 def fetch_places(city):
